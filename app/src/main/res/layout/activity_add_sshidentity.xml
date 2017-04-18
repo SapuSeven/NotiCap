@@ -1,0 +1,199 @@
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:gravity="center_horizontal"
+	android:orientation="vertical"
+	tools:context="com.sapuseven.noticap.activity.AddSSHIdentityActivity">
+
+	<ScrollView
+		android:layout_width="match_parent"
+		android:layout_height="0dp"
+		android:layout_weight="1">
+
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:orientation="vertical"
+			android:padding="@dimen/activity_vertical_margin">
+
+			<android.support.design.widget.TextInputLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginBottom="4dp"
+				android:layout_marginTop="4dp">
+
+				<android.support.design.widget.TextInputEditText
+					android:id="@+id/name"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:ems="10"
+					android:hint="@string/name"
+					android:inputType="text"/>
+
+			</android.support.design.widget.TextInputLayout>
+
+			<android.support.design.widget.TextInputLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginBottom="4dp"
+				android:layout_marginTop="4dp">
+
+				<android.support.design.widget.TextInputEditText
+					android:id="@+id/host"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:ems="10"
+					android:hint="@string/host"
+					android:inputType="textUri"/>
+
+			</android.support.design.widget.TextInputLayout>
+
+			<android.support.design.widget.TextInputLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginBottom="4dp"
+				android:layout_marginTop="4dp">
+
+				<android.support.design.widget.TextInputEditText
+					android:id="@+id/port"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:ems="10"
+					android:hint="@string/port"
+					android:inputType="number"/>
+
+			</android.support.design.widget.TextInputLayout>
+
+			<android.support.design.widget.TextInputLayout
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:layout_marginBottom="4dp"
+				android:layout_marginTop="4dp">
+
+				<android.support.design.widget.TextInputEditText
+					android:id="@+id/username"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:ems="10"
+					android:hint="@string/username"
+					android:inputType="text"/>
+
+			</android.support.design.widget.TextInputLayout>
+
+			<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:orientation="horizontal">
+
+				<Button
+					android:id="@+id/use_password_activated"
+					style="@style/Widget.AppCompat.Button.Borderless.Colored"
+					android:layout_width="0dp"
+					android:layout_height="wrap_content"
+					android:layout_weight="1"
+					android:text="@string/password"/>
+
+				<Button
+					android:id="@+id/use_keyfile"
+					style="@style/Widget.AppCompat.Button.Borderless"
+					android:layout_width="0dp"
+					android:layout_height="wrap_content"
+					android:layout_weight="1"
+					android:text="@string/private_key"/>
+
+				<Button
+					android:id="@+id/use_password"
+					style="@style/Widget.AppCompat.Button.Borderless"
+					android:layout_width="0dp"
+					android:layout_height="wrap_content"
+					android:layout_weight="1"
+					android:text="@string/password"
+					android:visibility="gone"/>
+
+				<Button
+					android:id="@+id/use_keyfile_activated"
+					style="@style/Widget.AppCompat.Button.Borderless.Colored"
+					android:layout_width="0dp"
+					android:layout_height="wrap_content"
+					android:layout_weight="1"
+					android:text="@string/private_key"
+					android:visibility="gone"/>
+			</LinearLayout>
+
+			<LinearLayout
+				android:id="@+id/password_container"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:orientation="vertical">
+
+				<android.support.design.widget.TextInputLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_marginBottom="4dp"
+					android:layout_marginTop="4dp">
+
+					<android.support.design.widget.TextInputEditText
+						android:id="@+id/password"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:ems="10"
+						android:hint="@string/password"
+						android:inputType="textPassword"/>
+
+				</android.support.design.widget.TextInputLayout>
+
+			</LinearLayout>
+
+			<LinearLayout
+				android:id="@+id/keyfile_container"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:orientation="vertical"
+				android:visibility="gone">
+
+				<android.support.design.widget.TextInputLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_marginBottom="4dp"
+					android:layout_marginTop="4dp">
+
+					<android.support.design.widget.TextInputEditText
+						android:id="@+id/keyfile_path"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:ems="10"
+						android:hint="@string/private_key_path"
+						android:inputType="textUri"/>
+
+				</android.support.design.widget.TextInputLayout>
+
+				<android.support.design.widget.TextInputLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_marginBottom="4dp"
+					android:layout_marginTop="4dp">
+
+					<android.support.design.widget.TextInputEditText
+						android:id="@+id/keyfile_password"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:ems="10"
+						android:hint="@string/private_key_password"
+						android:inputType="textPassword"/>
+
+				</android.support.design.widget.TextInputLayout>
+
+			</LinearLayout>
+
+		</LinearLayout>
+	</ScrollView>
+
+	<Button
+		android:id="@+id/add"
+		style="@style/Widget.AppCompat.Button.Borderless.Colored"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:text="@string/save"/>
+</LinearLayout>

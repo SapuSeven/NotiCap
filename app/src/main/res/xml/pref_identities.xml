@@ -1,0 +1,13 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+	<Preference
+		android:key="add_identity"
+		android:title="@string/pref_add_identity"/>
+
+	<PreferenceCategory
+		android:key="list_identities"
+		android:title="@string/pref_current_identities">
+
+	</PreferenceCategory>
+
+</PreferenceScreen>

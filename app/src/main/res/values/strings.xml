@@ -1,0 +1,54 @@
+<resources>
+	<string name="app_name">NotiCap</string>
+
+	<string name="title_activity_add_sshidentity">Add SSH Identity</string>
+
+	<string name="error_field_required">This field is required</string>
+	<string name="name">Name</string>
+	<string name="filter_by">Filter by:</string>
+	<string name="package_name">Package Name</string>
+	<string name="separate_packages_hint">Separate multiple package names using +.</string>
+	<string name="conditions">Conditions:</string>
+	<string name="time_of_day">Time of Day</string>
+	<string name="from">From:</string>
+	<string name="default_from">06:00</string>
+	<string name="default_to">22:00</string>
+	<string name="to">To:</string>
+	<string name="actions">Actions:</string>
+	<string name="ssh_identity">SSH Identity:</string>
+	<string name="shell_commands">Shell commands to execute</string>
+	<string name="save">Save</string>
+	<string name="host">Host</string>
+	<string name="port">Port</string>
+	<string name="username">Username</string>
+	<string name="password">Password</string>
+	<string name="private_key">Private Key</string>
+	<string name="private_key_path">Private Key Path</string>
+	<string name="private_key_password">Private Key Password</string>
+	<string name="add_new_identity">Add new…</string>
+	<string name="invalid_package_name">Invalid package name: %1$s</string>
+	<string name="filter_rule_storage_corrupted_title">Filter Rule Storage Corrupted</string>
+	<string name="filter_rule_storage_corrupted_body">The file used to store your filter rules appears to be corrupted.
+
+		Would you like to overwrite the existing content?</string>
+	<string name="yes">Yes</string>
+	<string name="no">No</string>
+	<string name="invalid_port">Invalid Port</string>
+	<string name="file_not_found">File not found</string>
+	<string name="is_a_directory">Is a directory</string>
+	<string name="identity_storage_corrupted_title">Identity Storage Corrupted</string>
+	<string name="identity_storage_corrupted_body">The file used to store your identities appears to be corrupted.  Would you like to overwrite the existing content?</string>
+	<string name="version">%1$s (%2$d)</string>
+	<string name="pref_setup">Setup</string>
+	<string name="pref_setup_desc">Grant notification access</string>
+	<string name="pref_add_rule">Add a Rule</string>
+	<string name="pref_current_rules">Current Rules</string>
+	<string name="pref_filter_rules">Filter Rules</string>
+	<string name="pref_identities">SSH Identities</string>
+	<string name="pref_infos">Infos</string>
+	<string name="pref_add_identity">Add an Identity</string>
+	<string name="pref_current_identities">Current Identities</string>
+	<string name="pref_app_version">App Version</string>
+	<string name="pref_app_version_desc">\?</string>
+	<string name="pref_debug_send_notification">Send a notification for testing</string>
+</resources>

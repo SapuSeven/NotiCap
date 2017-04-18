@@ -1,0 +1,18 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+	<Preference
+		android:key="setup"
+		android:summary="@string/pref_setup_desc"
+		android:title="@string/pref_setup"/>
+
+	<Preference
+		android:key="add_filter_rule"
+		android:title="@string/pref_add_rule"/>
+
+	<PreferenceCategory
+		android:key="list_filter_rule"
+		android:title="@string/pref_current_rules">
+
+	</PreferenceCategory>
+
+</PreferenceScreen>

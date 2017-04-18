@@ -1,0 +1,18 @@
+<preference-headers xmlns:android="http://schemas.android.com/apk/res/android">
+
+	<header
+		android:fragment="com.sapuseven.noticap.activity.SettingsActivity$FiltersPreferenceFragment"
+		android:icon="@drawable/filter"
+		android:title="@string/pref_filter_rules"/>
+
+	<header
+		android:fragment="com.sapuseven.noticap.activity.SettingsActivity$IdentitiesPreferenceFragment"
+		android:icon="@drawable/identity"
+		android:title="@string/pref_identities"/>
+
+	<header
+		android:fragment="com.sapuseven.noticap.activity.SettingsActivity$InfosPreferenceFragment"
+		android:icon="@drawable/info"
+		android:title="@string/pref_infos"/>
+
+</preference-headers>
