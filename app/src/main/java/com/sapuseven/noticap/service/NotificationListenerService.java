@@ -19,7 +19,7 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.zip.DataFormatException;
 
-public class NotificationListenerService4 extends android.service.notification.NotificationListenerService {
+public class NotificationListenerService extends android.service.notification.NotificationListenerService {
 	private final String TAG = this.getClass().getSimpleName();
 
 	private static boolean isTimeBetween(String fromTime, String toTime, String nowTime) throws ParseException {

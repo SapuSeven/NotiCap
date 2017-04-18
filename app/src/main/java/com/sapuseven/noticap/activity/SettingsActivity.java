@@ -15,7 +15,7 @@ import android.view.MenuItem;
 
 import com.sapuseven.noticap.BuildConfig;
 import com.sapuseven.noticap.R;
-import com.sapuseven.noticap.service.NotificationListenerService4;
+import com.sapuseven.noticap.service.NotificationListenerService;
 import com.sapuseven.noticap.utils.FilterRule;
 import com.sapuseven.noticap.utils.SSHIdentity;
 
@@ -40,7 +40,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 		super.onCreate(savedInstanceState);
 		actionBar = getSupportActionBar();
 
-		startService(new Intent(this, NotificationListenerService4.class));
+		startService(new Intent(this, NotificationListenerService.class));
 	}
 
 	@Override
