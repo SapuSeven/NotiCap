@@ -51,4 +51,10 @@
 	<string name="pref_app_version">App Version</string>
 	<string name="pref_app_version_desc">\?</string>
 	<string name="pref_debug_send_notification">Send a notification for testing</string>
+	<string name="permission_required">Permission required</string>
+	<string name="permission_required_explaination">You have to grant permissions to read a key file from external storage.</string>
+	<string name="ok">OK</string>
+	<string name="error_write_file">Failed to write file</string>
+	<string name="error_saving_filter_rule">An error occurred while trying to save the filter rule.  Error message: $1%s</string>
+	<string name="error_saving_identity">An error occurred while trying to save the identity.  Error message: $1%s</string>
 </resources>

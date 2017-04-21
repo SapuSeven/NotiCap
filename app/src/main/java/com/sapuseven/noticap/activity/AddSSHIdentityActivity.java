@@ -225,7 +225,18 @@ public class AddSSHIdentityActivity extends AppCompatActivity {
 			return false;
 		} catch (Exception e) {
 			e.printStackTrace();
-			return !overwrite; // Prevent infinite loops
+			if (overwrite)
+				new AlertDialog.Builder(this)
+						.setTitle(R.string.error_write_file)
+						.setMessage(getString(R.string.error_saving_identity, e.getMessage()))
+						.setNeutralButton(getString(R.string.ok), new DialogInterface.OnClickListener() {
+							@Override
+							public void onClick(DialogInterface dialog, int which) {
+								dialog.dismiss();
+							}
+						})
+						.show();
+			return true;
 		}
 	}
 
@@ -244,7 +255,6 @@ public class AddSSHIdentityActivity extends AppCompatActivity {
 	public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults) {
 		switch (requestCode) {
 			case 1: {
-				//noinspection StatementWithEmptyBody
 				if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 					findViewById(R.id.password_container).setVisibility(View.GONE);
 					findViewById(R.id.keyfile_container).setVisibility(View.VISIBLE);
@@ -254,7 +264,16 @@ public class AddSSHIdentityActivity extends AppCompatActivity {
 					findViewById(R.id.use_password_activated).setVisibility(View.GONE);
 					findViewById(R.id.use_keyfile_activated).setVisibility(View.VISIBLE);
 				} else {
-					// TODO: Show an error message
+					new AlertDialog.Builder(this)
+							.setTitle(R.string.permission_required)
+							.setMessage(R.string.permission_required_explaination)
+							.setNeutralButton(getString(R.string.ok), new DialogInterface.OnClickListener() {
+								@Override
+								public void onClick(DialogInterface dialog, int which) {
+									dialog.dismiss();
+								}
+							})
+							.show();
 				}
 			}
 		}

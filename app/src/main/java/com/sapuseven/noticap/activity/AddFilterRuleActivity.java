@@ -254,7 +254,18 @@ public class AddFilterRuleActivity extends AppCompatActivity {
 			return false;
 		} catch (Exception e) {
 			e.printStackTrace();
-			return !overwrite; // Prevent infinite loops in case of an expression, TODO: implement an error message
+			if (overwrite)
+				new AlertDialog.Builder(this)
+						.setTitle(R.string.error_write_file)
+						.setMessage(getString(R.string.error_saving_filter_rule, e.getMessage()))
+						.setNeutralButton(getString(R.string.ok), new DialogInterface.OnClickListener() {
+							@Override
+							public void onClick(DialogInterface dialog, int which) {
+								dialog.dismiss();
+							}
+						})
+						.show();
+			return true;
 		}
 	}
 
