@@ -55,6 +55,15 @@
 	<string name="permission_required_explaination">You have to grant permissions to read a key file from external storage.</string>
 	<string name="ok">OK</string>
 	<string name="error_write_file">Failed to write file</string>
-	<string name="error_saving_filter_rule">An error occurred while trying to save the filter rule.  Error message: $1%s</string>
-	<string name="error_saving_identity">An error occurred while trying to save the identity.  Error message: $1%s</string>
+	<string name="error_saving_filter_rule">An error occurred while trying to save the filter rule.  Error message: %s</string>
+	<string name="error_saving_identity">An error occurred while trying to save the identity.  Error message: %s</string>
+	<string name="error_deleting_filter_rule">An error occurred while trying to delete the filter rule.  Error message: %s</string>
+	<string name="error_deleting_identity">An error occurred while trying to delete the identity.  Error message: %s</string>
+	<string name="delete">Delete</string>
+	<string name="confirm_delete">Confirm Delete</string>
+	<string name="title_activity_add_filter_rule">Add Filter Rule</string>
+	<plurals name="selected_item_count">
+		<item quantity="one">%d Item</item>
+		<item quantity="other">%d Items</item>
+	</plurals>
 </resources>

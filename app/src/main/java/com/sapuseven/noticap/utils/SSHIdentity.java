@@ -46,15 +46,15 @@ public class SSHIdentity {
 		this.id = id;
 	}
 
-	public SSHIdentity(@NonNull JSONObject identity) {
-		this.name = identity.optString("name");
-		this.host = identity.optString("host");
-		this.username = identity.optString("username");
+	public SSHIdentity(@NonNull JSONObject identity) throws JSONException {
+		this.name = identity.getString("name");
+		this.host = identity.getString("host");
+		this.username = identity.getString("username");
 		this.password = identity.optString("password");
 		this.keyFilePath = identity.optString("keyFilePath");
 		this.keyFilePassword = identity.optString("keyFilePassword");
-		this.port = identity.optInt("port");
-		this.id = identity.optLong("id");
+		this.port = identity.getInt("port");
+		this.id = identity.getLong("id");
 	}
 
 	public static JSONObject loadSavedIdentities(Context context, boolean overwrite) throws IOException, DataFormatException, JSONException {

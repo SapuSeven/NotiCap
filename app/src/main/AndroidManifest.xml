@@ -41,7 +41,7 @@
 
 		<activity
 			android:name=".activity.AddFilterRuleActivity"
-			android:label="Add Filter Rule"
+			android:label="@string/title_activity_add_filter_rule"
 			android:theme="@style/AppTheme">
 		</activity>
 	</application>
