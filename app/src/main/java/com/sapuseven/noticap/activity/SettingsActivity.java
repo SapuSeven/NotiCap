@@ -236,9 +236,9 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 	}
 
 	public static class IdentitiesPreferenceFragment extends PreferenceFragment {
-		final ArrayList<Preference> normalPreferences = new ArrayList<>();
-		final ArrayList<CheckBoxPreference> checkBoxPreferences = new ArrayList<>();
-		PreferenceCategory listCategory;
+		private final ArrayList<Preference> normalPreferences = new ArrayList<>();
+		private final ArrayList<CheckBoxPreference> checkBoxPreferences = new ArrayList<>();
+		private PreferenceCategory listCategory;
 		private MenuItem actionButtonDelete;
 		private MenuItem actionButtonConfirmDelete;
 		private boolean deleteMode;
@@ -295,8 +295,9 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 					deleteSelected();
 					enableDeleteMode(false);
 					return true;
+				default:
+					return super.onOptionsItemSelected(item);
 			}
-			return super.onOptionsItemSelected(item);
 		}
 
 		private void deleteSelected() {
