@@ -4,7 +4,22 @@
 		android:summary="@string/pref_app_version_desc"
 		android:title="@string/pref_app_version"/>
 
+	<PreferenceCategory
+		android:title="Debugging"/>
+
 	<Preference
 		android:key="debug_send_notification"
 		android:title="@string/pref_debug_send_notification"/>
+
+	<Preference
+		android:key="debug_reset"
+		android:summary="@string/pref_debug_reset_desc"
+		android:title="@string/pref_debug_reset"/>
+
+	<SwitchPreference
+		android:defaultValue="true"
+		android:key="debug_master_toggle"
+		android:summary="@string/pref_debug_master_toggle_desc"
+		android:title="@string/pref_debug_master_toggle"/>
+
 </PreferenceScreen>

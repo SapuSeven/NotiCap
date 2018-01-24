@@ -1,5 +1,6 @@
 package com.sapuseven.noticap.service;
 
+import android.preference.PreferenceManager;
 import android.service.notification.StatusBarNotification;
 import android.util.Log;
 
@@ -67,11 +68,17 @@ public class NotificationListenerService extends android.service.notification.No
 
 	@Override
 	public void onNotificationPosted(StatusBarNotification notification) {
-		Log.i(TAG, "*** NOTIFICATION POSTED ********");
+		Log.i(TAG, "*** NOTIFICATION POSTED **********");
 		Log.i(TAG, "* ID      : " + notification.getId());
 		Log.i(TAG, "* TEXT    : " + notification.getNotification().tickerText);
 		Log.i(TAG, "* PACKAGE : " + notification.getPackageName());
-		Log.i(TAG, "********************************");
+		Log.i(TAG, "**********************************");
+
+		if (!PreferenceManager.getDefaultSharedPreferences(this).getBoolean("debug_master_toggle", true)) {
+			Log.i(TAG, "* ACTIONS DISABLED IN PREFERENCES");
+			Log.i(TAG, "**********************************");
+			return;
+		}
 
 		try {
 			JSONArray savedRules = FilterRule.loadSavedFilterRules(this, false).getJSONArray("rules");
@@ -99,10 +106,12 @@ public class NotificationListenerService extends android.service.notification.No
 
 	@Override
 	public void onNotificationRemoved(StatusBarNotification notification) {
-		Log.i(TAG, "*** NOTIFICATION REMOVED *******");
+		Log.i(TAG, "*** NOTIFICATION REMOVED *********");
 		Log.i(TAG, "* ID      : " + notification.getId());
 		Log.i(TAG, "* TEXT    : " + notification.getNotification().tickerText);
 		Log.i(TAG, "* PACKAGE : " + notification.getPackageName());
-		Log.i(TAG, "********************************");
+		Log.i(TAG, "**********************************");
+
+		// TODO: Add actions for removed Notifications
 	}
 }

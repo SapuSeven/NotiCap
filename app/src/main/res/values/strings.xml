@@ -62,6 +62,10 @@
 	<string name="delete">Delete</string>
 	<string name="confirm_delete">Confirm Delete</string>
 	<string name="title_activity_add_filter_rule">Add Filter Rule</string>
+	<string name="pref_debug_reset">Reset active actions</string>
+	<string name="pref_debug_reset_desc">Your rules and identities won\'t be affected</string>
+	<string name="pref_debug_master_toggle">Master switch for all filters</string>
+	<string name="pref_debug_master_toggle_desc">Enable or disable all filters at once</string>
 	<plurals name="selected_item_count">
 		<item quantity="one">%d Item</item>
 		<item quantity="other">%d Items</item>
