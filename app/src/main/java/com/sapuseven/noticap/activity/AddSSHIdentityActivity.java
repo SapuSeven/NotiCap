@@ -2,7 +2,6 @@ package com.sapuseven.noticap.activity;
 
 import android.Manifest;
 import android.app.Activity;
-import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -14,7 +13,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.EditText;
 
 import com.sapuseven.noticap.R;
@@ -40,57 +38,48 @@ public class AddSSHIdentityActivity extends AppCompatActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_add_sshidentity);
-		tvName = (EditText) findViewById(R.id.name);
-		tvHost = (EditText) findViewById(R.id.host);
-		tvPort = (EditText) findViewById(R.id.port);
-		tvUsername = (EditText) findViewById(R.id.username);
-		tvPassword = (EditText) findViewById(R.id.password);
-		tvKeyfilePath = (EditText) findViewById(R.id.keyfile_path);
-		tvKeyfilePassword = (EditText) findViewById(R.id.keyfile_password);
+		tvName = findViewById(R.id.name);
+		tvHost = findViewById(R.id.host);
+		tvPort = findViewById(R.id.port);
+		tvUsername = findViewById(R.id.username);
+		tvPassword = findViewById(R.id.password);
+		tvKeyfilePath = findViewById(R.id.keyfile_path);
+		tvKeyfilePassword = findViewById(R.id.keyfile_password);
 
 		ActionBar actionBar = getSupportActionBar();
 		if (actionBar != null)
 			actionBar.setDisplayHomeAsUpEnabled(true);
 
-		findViewById(R.id.add).setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View view) {
-				try {
-					saveIdentity();
-				} catch (JSONException | IOException | DataFormatException e) {
-					e.printStackTrace();
-				}
+		findViewById(R.id.add).setOnClickListener(view -> {
+			try {
+				saveIdentity();
+			} catch (JSONException | IOException | DataFormatException e) {
+				e.printStackTrace();
 			}
 		});
 
-		findViewById(R.id.use_password).setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				findViewById(R.id.password_container).setVisibility(View.VISIBLE);
-				findViewById(R.id.keyfile_container).setVisibility(View.GONE);
+		findViewById(R.id.use_password).setOnClickListener(v -> {
+			findViewById(R.id.password_container).setVisibility(View.VISIBLE);
+			findViewById(R.id.keyfile_container).setVisibility(View.GONE);
 
-				findViewById(R.id.use_password).setVisibility(View.GONE);
-				findViewById(R.id.use_keyfile).setVisibility(View.VISIBLE);
-				findViewById(R.id.use_password_activated).setVisibility(View.VISIBLE);
-				findViewById(R.id.use_keyfile_activated).setVisibility(View.GONE);
-			}
+			findViewById(R.id.use_password).setVisibility(View.GONE);
+			findViewById(R.id.use_keyfile).setVisibility(View.VISIBLE);
+			findViewById(R.id.use_password_activated).setVisibility(View.VISIBLE);
+			findViewById(R.id.use_keyfile_activated).setVisibility(View.GONE);
 		});
 
 		final Activity activity = this;
-		findViewById(R.id.use_keyfile).setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-					ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
-				} else {
-					findViewById(R.id.password_container).setVisibility(View.GONE);
-					findViewById(R.id.keyfile_container).setVisibility(View.VISIBLE);
+		findViewById(R.id.use_keyfile).setOnClickListener(v -> {
+			if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+				ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
+			} else {
+				findViewById(R.id.password_container).setVisibility(View.GONE);
+				findViewById(R.id.keyfile_container).setVisibility(View.VISIBLE);
 
-					findViewById(R.id.use_password).setVisibility(View.VISIBLE);
-					findViewById(R.id.use_keyfile).setVisibility(View.GONE);
-					findViewById(R.id.use_password_activated).setVisibility(View.GONE);
-					findViewById(R.id.use_keyfile_activated).setVisibility(View.VISIBLE);
-				}
+				findViewById(R.id.use_password).setVisibility(View.VISIBLE);
+				findViewById(R.id.use_keyfile).setVisibility(View.GONE);
+				findViewById(R.id.use_password_activated).setVisibility(View.GONE);
+				findViewById(R.id.use_keyfile_activated).setVisibility(View.VISIBLE);
 			}
 		});
 
@@ -196,16 +185,8 @@ public class AddSSHIdentityActivity extends AppCompatActivity {
 				new AlertDialog.Builder(this)
 						.setTitle(R.string.identity_storage_corrupted_title)
 						.setMessage(R.string.identity_storage_corrupted_body)
-						.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
-							public void onClick(DialogInterface dialog, int which) {
-								addIdentity(identity, true);
-							}
-						})
-						.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
-							public void onClick(DialogInterface dialog, int which) {
-								dialog.dismiss();
-							}
-						})
+						.setPositiveButton(R.string.yes, (dialog, which) -> addIdentity(identity, true))
+						.setNegativeButton(R.string.no, (dialog, which) -> dialog.dismiss())
 						.setIcon(android.R.drawable.ic_dialog_alert)
 						.show();
 			} else {
@@ -229,12 +210,7 @@ public class AddSSHIdentityActivity extends AppCompatActivity {
 				new AlertDialog.Builder(this)
 						.setTitle(R.string.error_write_file)
 						.setMessage(getString(R.string.error_saving_identity, e.getMessage()))
-						.setNeutralButton(getString(R.string.ok), new DialogInterface.OnClickListener() {
-							@Override
-							public void onClick(DialogInterface dialog, int which) {
-								dialog.dismiss();
-							}
-						})
+						.setNeutralButton(getString(R.string.ok), (dialog, which) -> dialog.dismiss())
 						.show();
 			return true;
 		}
@@ -254,7 +230,7 @@ public class AddSSHIdentityActivity extends AppCompatActivity {
 	@Override
 	public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults) {
 		switch (requestCode) {
-			case 1: {
+			case 1:
 				if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 					findViewById(R.id.password_container).setVisibility(View.GONE);
 					findViewById(R.id.keyfile_container).setVisibility(View.VISIBLE);
@@ -267,15 +243,12 @@ public class AddSSHIdentityActivity extends AppCompatActivity {
 					new AlertDialog.Builder(this)
 							.setTitle(R.string.permission_required)
 							.setMessage(R.string.permission_required_explaination)
-							.setNeutralButton(getString(R.string.ok), new DialogInterface.OnClickListener() {
-								@Override
-								public void onClick(DialogInterface dialog, int which) {
-									dialog.dismiss();
-								}
-							})
+							.setNeutralButton(getString(R.string.ok), (dialog, which) -> dialog.dismiss())
 							.show();
 				}
-			}
+				break;
+			default:
+				break;
 		}
 	}
 }

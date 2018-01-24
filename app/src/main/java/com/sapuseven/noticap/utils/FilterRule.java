@@ -12,12 +12,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.zip.DataFormatException;
 
-/**
- * @author paul
- * @version 1.0
- * @since 2017-04-05
- */
-
 public class FilterRule {
 	@NonNull
 	private String name = "";

@@ -11,12 +11,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.zip.DataFormatException;
 
-/**
- * @author paul
- * @version 1.0
- * @since 2017-04-05
- */
-
 public class SSHIdentity {
 	@NonNull
 	private String name = "";

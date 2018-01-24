@@ -2,7 +2,6 @@ package com.sapuseven.noticap.activity;
 
 import android.app.NotificationManager;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -67,9 +66,9 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 	}
 
 	public static class FiltersPreferenceFragment extends PreferenceFragment {
-		ArrayList<Preference> normalPreferences = new ArrayList<>();
-		ArrayList<CheckBoxPreference> checkBoxPreferences = new ArrayList<>();
-		PreferenceCategory listCategory;
+		private final ArrayList<Preference> normalPreferences = new ArrayList<>();
+		private final ArrayList<CheckBoxPreference> checkBoxPreferences = new ArrayList<>();
+		private PreferenceCategory listCategory;
 		private MenuItem actionButtonDelete;
 		private MenuItem actionButtonConfirmDelete;
 		private boolean deleteMode;
@@ -84,21 +83,15 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 			if (actionBar != null)
 				actionBar.setDisplayHomeAsUpEnabled(true);
 
-			findPreference("setup").setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-				@Override
-				public boolean onPreferenceClick(Preference preference) {
-					startActivity(new Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS"));
-					return true;
-				}
+			findPreference("setup").setOnPreferenceClickListener(preference -> {
+				startActivity(new Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS"));
+				return true;
 			});
 
-			findPreference("add_filter_rule").setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-				@Override
-				public boolean onPreferenceClick(Preference preference) {
-					Intent i = new Intent(getActivity(), AddFilterRuleActivity.class);
-					startActivity(i);
-					return true;
-				}
+			findPreference("add_filter_rule").setOnPreferenceClickListener(preference -> {
+				Intent i = new Intent(getActivity(), AddFilterRuleActivity.class);
+				startActivity(i);
+				return true;
 			});
 
 			listCategory = (PreferenceCategory) findPreference("list_filter_rule");
@@ -140,8 +133,9 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 					deleteSelected();
 					enableDeleteMode(false);
 					return true;
+				default:
+					return super.onOptionsItemSelected(item);
 			}
-			return super.onOptionsItemSelected(item);
 		}
 
 		private void enableDeleteMode(boolean enable) {
@@ -174,12 +168,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 				new AlertDialog.Builder(getActivity())
 						.setTitle(R.string.error_write_file)
 						.setMessage(getString(R.string.error_deleting_filter_rule, e.getMessage()))
-						.setNeutralButton(getString(R.string.ok), new DialogInterface.OnClickListener() {
-							@Override
-							public void onClick(DialogInterface dialog, int which) {
-								dialog.dismiss();
-							}
-						})
+						.setNeutralButton(getString(R.string.ok), (dialog, which) -> dialog.dismiss())
 						.show();
 			}
 		}
@@ -203,26 +192,20 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 					Preference normalPref = new Preference(getActivity());
 					normalPref.setTitle(rule.getName());
 					final int index = i;
-					normalPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-						@Override
-						public boolean onPreferenceClick(Preference preference) {
-							Intent intent = new Intent(getActivity(), AddFilterRuleActivity.class);
-							intent.putExtra("modify", true);
-							intent.putExtra("index", index);
-							startActivity(intent);
-							return true;
-						}
+					normalPref.setOnPreferenceClickListener(preference -> {
+						Intent intent = new Intent(getActivity(), AddFilterRuleActivity.class);
+						intent.putExtra("modify", true);
+						intent.putExtra("index", index);
+						startActivity(intent);
+						return true;
 					});
 					normalPreferences.add(normalPref);
 
 					CheckBoxPreference checkBoxPref = new CheckBoxPreference(getActivity());
 					checkBoxPref.setTitle(rule.getName());
-					checkBoxPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-						@Override
-						public boolean onPreferenceClick(Preference preference) {
-							updateSelectedItemCount();
-							return true;
-						}
+					checkBoxPref.setOnPreferenceClickListener(preference -> {
+						updateSelectedItemCount();
+						return true;
 					});
 					checkBoxPreferences.add(checkBoxPref);
 				} catch (JSONException e) {
@@ -253,8 +236,8 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 	}
 
 	public static class IdentitiesPreferenceFragment extends PreferenceFragment {
-		ArrayList<Preference> normalPreferences = new ArrayList<>();
-		ArrayList<CheckBoxPreference> checkBoxPreferences = new ArrayList<>();
+		final ArrayList<Preference> normalPreferences = new ArrayList<>();
+		final ArrayList<CheckBoxPreference> checkBoxPreferences = new ArrayList<>();
 		PreferenceCategory listCategory;
 		private MenuItem actionButtonDelete;
 		private MenuItem actionButtonConfirmDelete;
@@ -267,13 +250,10 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 			addPreferencesFromResource(R.xml.pref_identities);
 			setHasOptionsMenu(true);
 
-			findPreference("add_identity").setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-				@Override
-				public boolean onPreferenceClick(Preference preference) {
-					Intent i = new Intent(getActivity(), AddSSHIdentityActivity.class);
-					startActivity(i);
-					return true;
-				}
+			findPreference("add_identity").setOnPreferenceClickListener(preference -> {
+				Intent i = new Intent(getActivity(), AddSSHIdentityActivity.class);
+				startActivity(i);
+				return true;
 			});
 
 			listCategory = (PreferenceCategory) findPreference("list_identities");
@@ -331,12 +311,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 				new AlertDialog.Builder(getActivity())
 						.setTitle(R.string.error_write_file)
 						.setMessage(getString(R.string.error_deleting_identity, e.getMessage()))
-						.setNeutralButton(getString(R.string.ok), new DialogInterface.OnClickListener() {
-							@Override
-							public void onClick(DialogInterface dialog, int which) {
-								dialog.dismiss();
-							}
-						})
+						.setNeutralButton(getString(R.string.ok), (dialog, which) -> dialog.dismiss())
 						.show();
 			}
 		}
@@ -384,15 +359,12 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 					normalPref.setTitle(identity.getName());
 					normalPref.setSummary(identity.getHost() + ":" + identity.getPort());
 					final int index = i;
-					normalPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-						@Override
-						public boolean onPreferenceClick(Preference preference) {
-							Intent intent = new Intent(getActivity(), AddSSHIdentityActivity.class);
-							intent.putExtra("modify", true);
-							intent.putExtra("index", index);
-							startActivity(intent);
-							return true;
-						}
+					normalPref.setOnPreferenceClickListener(preference -> {
+						Intent intent = new Intent(getActivity(), AddSSHIdentityActivity.class);
+						intent.putExtra("modify", true);
+						intent.putExtra("index", index);
+						startActivity(intent);
+						return true;
 					});
 					normalPreferences.add(normalPref);
 					listCategory.addPreference(normalPref);
@@ -400,12 +372,9 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 					CheckBoxPreference checkBoxPref = new CheckBoxPreference(getActivity());
 					checkBoxPref.setTitle(identity.getName());
 					checkBoxPref.setSummary(identity.getHost() + ":" + identity.getPort());
-					checkBoxPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-						@Override
-						public boolean onPreferenceClick(Preference preference) {
-							updateSelectedItemCount();
-							return true;
-						}
+					checkBoxPref.setOnPreferenceClickListener(preference -> {
+						updateSelectedItemCount();
+						return true;
 					});
 					checkBoxPreferences.add(checkBoxPref);
 				} catch (JSONException e) {
@@ -453,17 +422,14 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 
 			if (BuildConfig.DEBUG) {
 				findPreference("debug_send_notification").setSummary("Package name: " + BuildConfig.APPLICATION_ID);
-				findPreference("debug_send_notification").setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-					@Override
-					public boolean onPreferenceClick(Preference preference) {
-						((NotificationManager) getActivity().getSystemService(Context.NOTIFICATION_SERVICE)).notify(0,
-								new NotificationCompat.Builder(getActivity())
-										.setSmallIcon(R.drawable.info)
-										.setContentTitle("Test Notification")
-										.setContentText("Use " + BuildConfig.APPLICATION_ID + " as the package name to test your actions")
-										.build());
-						return true;
-					}
+				findPreference("debug_send_notification").setOnPreferenceClickListener(preference -> {
+					((NotificationManager) getActivity().getSystemService(Context.NOTIFICATION_SERVICE)).notify(0,
+							new NotificationCompat.Builder(getActivity())
+									.setSmallIcon(R.drawable.info)
+									.setContentTitle("Test Notification")
+									.setContentText("Use " + BuildConfig.APPLICATION_ID + " as the package name to test your actions")
+									.build());
+					return true;
 				});
 			}
 		}

@@ -13,12 +13,6 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Properties;
 
-/**
- * @author paul
- * @version 1.0
- * @since 2017-04-04
- */
-
 public class SSHClient {
 	public static class RemoteCommand extends AsyncTask<Void, Void, ArrayList<String>> {
 		private final String command;

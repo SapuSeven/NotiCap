@@ -2,7 +2,6 @@ package com.sapuseven.noticap.activity;
 
 import android.app.Dialog;
 import android.app.TimePickerDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -11,16 +10,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.Switch;
-import android.widget.TimePicker;
 
 import com.sapuseven.noticap.R;
 import com.sapuseven.noticap.utils.FilterRule;
@@ -43,19 +39,15 @@ public class AddFilterRuleActivity extends AppCompatActivity {
 	private Spinner identitiesDropDown;
 	private String from = "06:00";
 	private String to = "22:00";
-	private final TimePickerDialog.OnTimeSetListener fromTimePickerListener = new TimePickerDialog.OnTimeSetListener() {
-		public void onTimeSet(TimePicker view, int selectedHour, int selectedMinute) {
-			from = String.format(Locale.US, "%02d:%02d", selectedHour, selectedMinute);
+	private final TimePickerDialog.OnTimeSetListener fromTimePickerListener = (view, selectedHour, selectedMinute) -> {
+		from = String.format(Locale.US, "%02d:%02d", selectedHour, selectedMinute);
 
-			setDaytimeButtons();
-		}
+		setDaytimeButtons();
 	};
-	private final TimePickerDialog.OnTimeSetListener toTimePickerListener = new TimePickerDialog.OnTimeSetListener() {
-		public void onTimeSet(TimePicker view, int selectedHour, int selectedMinute) {
-			to = String.format(Locale.US, "%02d:%02d", selectedHour, selectedMinute);
+	private final TimePickerDialog.OnTimeSetListener toTimePickerListener = (view, selectedHour, selectedMinute) -> {
+		to = String.format(Locale.US, "%02d:%02d", selectedHour, selectedMinute);
 
-			setDaytimeButtons();
-		}
+		setDaytimeButtons();
 	};
 	private Switch daytimeSwitch;
 
@@ -68,48 +60,32 @@ public class AddFilterRuleActivity extends AppCompatActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_add_filter);
-		tvName = (EditText) findViewById(R.id.name);
-		tvFilterPackageName = (EditText) findViewById(R.id.package_name);
-		tvExec = (EditText) findViewById(R.id.exec);
-		identitiesDropDown = (Spinner) findViewById(R.id.identities);
-		daytimeSwitch = (Switch) findViewById(R.id.daytime_switch);
+		tvName = findViewById(R.id.name);
+		tvFilterPackageName = findViewById(R.id.package_name);
+		tvExec = findViewById(R.id.exec);
+		identitiesDropDown = findViewById(R.id.identities);
+		daytimeSwitch = findViewById(R.id.daytime_switch);
 
 		ActionBar actionBar = getSupportActionBar();
 		if (actionBar != null)
 			actionBar.setDisplayHomeAsUpEnabled(true);
 
-		findViewById(R.id.add).setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View view) {
-				try {
-					saveFilter();
-				} catch (JSONException | IOException | DataFormatException e) {
-					e.printStackTrace();
-				}
+		findViewById(R.id.add).setOnClickListener(view -> {
+			try {
+				saveFilter();
+			} catch (JSONException | IOException | DataFormatException e) {
+				e.printStackTrace();
 			}
 		});
 
-		daytimeSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-			@Override
-			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-				findViewById(R.id.button_from).setEnabled(isChecked);
-				findViewById(R.id.button_to).setEnabled(isChecked);
-			}
+		daytimeSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
+			findViewById(R.id.button_from).setEnabled(isChecked);
+			findViewById(R.id.button_to).setEnabled(isChecked);
 		});
 
-		findViewById(R.id.button_from).setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				showDialog(0);
-			}
-		});
+		findViewById(R.id.button_from).setOnClickListener(v -> showDialog(0));
 
-		findViewById(R.id.button_to).setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				showDialog(1);
-			}
-		});
+		findViewById(R.id.button_to).setOnClickListener(v -> showDialog(1));
 
 		identitiesDropDown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 			@Override
@@ -121,7 +97,7 @@ public class AddFilterRuleActivity extends AppCompatActivity {
 
 			@Override
 			public void onNothingSelected(AdapterView<?> parent) {
-
+				// Nothing to do
 			}
 		});
 
@@ -225,16 +201,8 @@ public class AddFilterRuleActivity extends AppCompatActivity {
 				new AlertDialog.Builder(this)
 						.setTitle(R.string.filter_rule_storage_corrupted_title)
 						.setMessage(getString(R.string.filter_rule_storage_corrupted_body))
-						.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
-							public void onClick(DialogInterface dialog, int which) {
-								addFilter(filter, true);
-							}
-						})
-						.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
-							public void onClick(DialogInterface dialog, int which) {
-								dialog.dismiss();
-							}
-						})
+						.setPositiveButton(R.string.yes, (dialog, which) -> addFilter(filter, true))
+						.setNegativeButton(R.string.no, (dialog, which) -> dialog.dismiss())
 						.setIcon(android.R.drawable.ic_dialog_alert)
 						.show();
 			} else {
@@ -258,12 +226,7 @@ public class AddFilterRuleActivity extends AppCompatActivity {
 				new AlertDialog.Builder(this)
 						.setTitle(R.string.error_write_file)
 						.setMessage(getString(R.string.error_saving_filter_rule, e.getMessage()))
-						.setNeutralButton(getString(R.string.ok), new DialogInterface.OnClickListener() {
-							@Override
-							public void onClick(DialogInterface dialog, int which) {
-								dialog.dismiss();
-							}
-						})
+						.setNeutralButton(getString(R.string.ok), (dialog, which) -> dialog.dismiss())
 						.show();
 			return true;
 		}
@@ -286,7 +249,8 @@ public class AddFilterRuleActivity extends AppCompatActivity {
 				return new TimePickerDialog(this, fromTimePickerListener, Integer.parseInt(from.substring(0, 2)), Integer.parseInt(from.substring(3)), true);
 			case 1:
 				return new TimePickerDialog(this, toTimePickerListener, Integer.parseInt(to.substring(0, 2)), Integer.parseInt(to.substring(3)), true);
+			default:
+				return null;
 		}
-		return null;
 	}
 }

@@ -11,12 +11,6 @@ import java.util.zip.DataFormatException;
 import java.util.zip.Deflater;
 import java.util.zip.Inflater;
 
-/**
- * @author paul
- * @version 1.0
- * @since 2017-04-05
- */
-
 class Compressor {
 	private static byte[] compress(byte[] data) throws IOException {
 		Deflater deflater = new Deflater(Deflater.DEFAULT_COMPRESSION, true);
