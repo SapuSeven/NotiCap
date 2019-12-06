@@ -4,7 +4,7 @@ import android.preference.PreferenceManager;
 import android.service.notification.StatusBarNotification;
 import android.util.Log;
 
-import com.sapuseven.noticap.TimeoutList;
+import com.sapuseven.noticap.notiDelayList;
 import com.sapuseven.noticap.utils.FilterRule;
 import com.sapuseven.noticap.utils.SSHClient;
 import com.sapuseven.noticap.utils.SSHIdentity;
@@ -14,19 +14,16 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 import java.util.zip.DataFormatException;
 
 public class NotificationListenerService extends android.service.notification.NotificationListenerService {
 	private final String TAG = this.getClass().getSimpleName();
-	TimeoutList timeoutList = new TimeoutList();
+	notiDelayList notiDelayList = new notiDelayList();
 
 	private static boolean isTimeBetween(String fromTime, String toTime, String nowTime) throws ParseException {
 		String reg = "^([0-1][0-9]|2[0-3]):([0-5][0-9])$";
@@ -96,12 +93,12 @@ public class NotificationListenerService extends android.service.notification.No
 				for (int j = 0; j < packages.length(); j++) {
 					if (packages.getString(j).equals(notification.getPackageName())) {
 						FilterRule rule = new FilterRule(ruleObj);
-						if(timeoutList.isInTimeout(rule)) {
-							timeoutList.Update(rule);
+						if(notiDelayList.isInTimeout(rule)) {
+							notiDelayList.Update(rule);
 							Log.i(TAG, "Execution prevented by timeout");
 							return;
 						}
-						timeoutList.Update(rule);
+						notiDelayList.Update(rule);
 						Log.i(TAG, "Executing");
 						String currentTime = new SimpleDateFormat("HH:mm", Locale.US).format(Calendar.getInstance().getTime());
 						if (!rule.useDaytime() || isTimeBetween(rule.getFrom(), rule.getTo(), currentTime)) {

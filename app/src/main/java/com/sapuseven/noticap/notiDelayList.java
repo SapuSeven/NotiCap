@@ -6,7 +6,7 @@ import com.sapuseven.noticap.utils.FilterRule;
 
 import java.util.ArrayList;
 
-public class TimeoutList {
+public class notiDelayList {
     ArrayList<FilterRule> pendingDelays = new ArrayList<>();
     ArrayList<Long> curDelayTime = new ArrayList<>();
 
