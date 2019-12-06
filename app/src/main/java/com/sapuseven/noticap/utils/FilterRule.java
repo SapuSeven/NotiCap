@@ -25,6 +25,7 @@ public class FilterRule {
 	private Long identityID = 0L;
 	@NonNull
 	private String exec = "";
+	private int minTimeDiff = 1000;
 
 	public FilterRule() {
 	}
@@ -89,6 +90,10 @@ public class FilterRule {
 		result.put("identityID", identityID);
 		result.put("exec", exec);
 		return result;
+	}
+
+	public int getminTimeDiff(){
+		return minTimeDiff;
 	}
 
 	@NonNull
