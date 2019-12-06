@@ -1,31 +1,34 @@
 package com.sapuseven.noticap;
 
+import android.util.Log;
+
 import com.sapuseven.noticap.utils.FilterRule;
 
 import java.util.ArrayList;
 
 public class TimeoutList {
-    ArrayList<FilterRule> pendingTimeouts = new ArrayList<>();
-    ArrayList<Long> curTimeoutTime = new ArrayList<>();
+    ArrayList<FilterRule> pendingDelays = new ArrayList<>();
+    ArrayList<Long> curDelayTime = new ArrayList<>();
 
     public void Update(FilterRule fr){
-        if(!pendingTimeouts.contains(fr)){
-            pendingTimeouts.add(fr);
-            curTimeoutTime.add(System.currentTimeMillis());
+        if(!pendingDelays.contains(fr)){
+            pendingDelays.add(fr);
+            curDelayTime.add(System.currentTimeMillis());
         }
         else{
-            int index = pendingTimeouts.indexOf(fr);
-            curTimeoutTime.set(index, System.currentTimeMillis());
+            int index = pendingDelays.indexOf(fr);
+            curDelayTime.set(index, System.currentTimeMillis());
         }
     }
 
     public boolean isInTimeout(FilterRule fr){
-        if(!pendingTimeouts.contains(fr))
+        if(!pendingDelays.contains(fr))
             return false;
-        int index = pendingTimeouts.indexOf(fr);
-        if(System.currentTimeMillis() - curTimeoutTime.get(index) >= fr.getminTimeDiff()){
-            pendingTimeouts.remove(index);
-            curTimeoutTime.remove(index);
+        int index = pendingDelays.indexOf(fr);
+        Log.i("NotificationListener", Long.toString(System.currentTimeMillis() - curDelayTime.get(index)));
+        if(System.currentTimeMillis() - curDelayTime.get(index) >= fr.getMinNotiDelay()){
+            pendingDelays.remove(index);
+            curDelayTime.remove(index);
             return false;
         }
         return true;

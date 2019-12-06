@@ -33,6 +33,7 @@ import java.util.zip.DataFormatException;
 
 public class AddFilterRuleActivity extends AppCompatActivity {
 	private final ArrayList<String> identities = new ArrayList<>();
+	private EditText tvMinNotiDelay;
 	private EditText tvName;
 	private EditText tvFilterPackageName;
 	private EditText tvExec;
@@ -65,6 +66,7 @@ public class AddFilterRuleActivity extends AppCompatActivity {
 		tvExec = findViewById(R.id.exec);
 		identitiesDropDown = findViewById(R.id.identities);
 		daytimeSwitch = findViewById(R.id.daytime_switch);
+		tvMinNotiDelay = findViewById(R.id.minNotiDelay);
 
 		ActionBar actionBar = getSupportActionBar();
 		if (actionBar != null)
@@ -107,6 +109,7 @@ public class AddFilterRuleActivity extends AppCompatActivity {
 				tvName.setText(rule.getName());
 				tvExec.setText(rule.getExec());
 				tvFilterPackageName.setText(TextUtils.join("+", rule.getPackageNames()));
+				tvMinNotiDelay.setText(Integer.toString((rule.getMinNotiDelay())));
 				if (rule.useDaytime()) {
 					daytimeSwitch.setChecked(true);
 					from = rule.getFrom();
@@ -158,7 +161,9 @@ public class AddFilterRuleActivity extends AppCompatActivity {
 		String name = tvName.getText().toString();
 		String packageNameFilter = tvFilterPackageName.getText().toString();
 		String exec = tvExec.getText().toString();
-
+		int minNotiDelay = 0;
+		if(!tvMinNotiDelay.getText().toString().isEmpty())
+			minNotiDelay = Integer.parseInt(tvMinNotiDelay.getText().toString());
 		boolean cancel = false;
 		View focusView = null;
 
@@ -190,6 +195,7 @@ public class AddFilterRuleActivity extends AppCompatActivity {
 			final FilterRule filter = new FilterRule();
 			filter.setName(name);
 			filter.setPackageNames(packageNameFilter.split("\\+"));
+			filter.setMinNotiDelay(minNotiDelay);
 			filter.setUseDaytime(daytimeSwitch.isChecked());
 			if (daytimeSwitch.isChecked()) {
 				filter.setFrom(from);

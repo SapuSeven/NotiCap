@@ -102,7 +102,7 @@ public class NotificationListenerService extends android.service.notification.No
 							return;
 						}
 						timeoutList.Update(rule);
-
+						Log.i(TAG, "Executing");
 						String currentTime = new SimpleDateFormat("HH:mm", Locale.US).format(Calendar.getInstance().getTime());
 						if (!rule.useDaytime() || isTimeBetween(rule.getFrom(), rule.getTo(), currentTime)) {
 							SSHIdentity identity = SSHIdentity.fromID(this, rule.getIdentityID());
