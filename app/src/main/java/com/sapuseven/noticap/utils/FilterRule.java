@@ -1,7 +1,7 @@
 package com.sapuseven.noticap.utils;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -25,6 +25,7 @@ public class FilterRule {
 	private Long identityID = 0L;
 	@NonNull
 	private String exec = "";
+	private int minNotiDelay = 10000;
 
 	public FilterRule() {
 	}
@@ -45,6 +46,7 @@ public class FilterRule {
 			from = rule.getString("from");
 			to = rule.getString("to");
 		}
+		minNotiDelay = rule.getInt("minNotiDelay");
 		identityID = rule.getLong("identityID");
 		exec = rule.getString("exec");
 	}
@@ -68,6 +70,18 @@ public class FilterRule {
 			return new JSONObject().put("rules", new JSONArray());
 	}
 
+	@Override
+	public boolean equals(Object obj){
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		FilterRule other = (FilterRule)obj;
+		return this.name.equals(other.name);
+	}
+
 	@NonNull
 	public String getName() {
 		return name;
@@ -82,6 +96,7 @@ public class FilterRule {
 		result.put("name", name);
 		result.put("packageNames", new JSONArray(packageNames));
 		result.put("useDaytime", useDaytime);
+		result.put("minNotiDelay", minNotiDelay);
 		if (useDaytime) {
 			result.put("from", from);
 			result.put("to", to);
@@ -91,9 +106,17 @@ public class FilterRule {
 		return result;
 	}
 
+	public int getMinNotiDelay(){
+		return minNotiDelay;
+	}
+
 	@NonNull
 	public String[] getPackageNames() {
 		return packageNames;
+	}
+
+	public void setMinNotiDelay(int timeDiff){
+		this.minNotiDelay = timeDiff;
 	}
 
 	public void setPackageNames(@NonNull String[] packageNames) {
